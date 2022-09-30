@@ -13,7 +13,7 @@ class Plan extends Model
 
     //relacionamento com a tabela details -> um para muiots
     public function details() {
-        return hasMany(DetailPlan::class);
+        return $this->hasMany(DetailPlan::class);
     }
 
     public function search($filter = null) {

@@ -11,6 +11,11 @@ class Plan extends Model
 
     protected $fillable = ['name', 'url', 'price', 'description'];
 
+    //relacionamento com a tabela details -> um para muiots
+    public function details() {
+        return hasMany(DetailPlan::class);
+    }
+
     public function search($filter = null) {
         $results = $this->where('name', 'LIKE', "%{$filter}%")
                         ->orWhere('description', 'LIKE', "%{$filter}%")

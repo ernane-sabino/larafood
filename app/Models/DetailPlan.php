@@ -11,6 +11,8 @@ class DetailPlan extends Model
 
     protected $table = 'details_plan';
 
+    protected $fillable = ['name'];
+
     //relacionamento com a tabela plan -> muitos para um
     public function plan() {
         return $this->belongsTo(Plan::class);

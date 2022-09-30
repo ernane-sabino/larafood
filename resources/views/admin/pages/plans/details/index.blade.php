@@ -3,13 +3,15 @@
 @section('title', "Detalhes do plano {$plan->name}")
 
 @section('content_header')
+
     <ol class="breadcrumb">
         <li class="breadcrumb-item"><a href="{{ route('admin.index') }}">Dashboard</a></li>
         <li class="breadcrumb-item"><a href="{{ route('plans.index') }}">Planos</a></li>
         <li class="breadcrumb-item"><a href="{{ route('plans.show', $plan->url) }}">{{ $plan->name }}</a></li>
         <li class="breadcrumb-item active"><a href="{{ route('details.plans.index', $plan->url) }}">Detalhes</a></li>
     </ol>
-    <h1>Detalhes do plano {{$plan->name}} <a href="{{ route('plans.create') }}" class="btn btn-dark">ADD</a></h1>
+
+    <h1>Detalhes do plano {{$plan->name}} <a href="{{ route('details.plans.create', $plan->url) }}" class="btn btn-dark">ADD</a></h1>
 @stop
 
 @section('content')

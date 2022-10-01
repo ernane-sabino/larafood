@@ -54,7 +54,9 @@ class PlanController extends Controller
 
         $plan->delete();
 
-        return redirect()->route('plans.index');
+        return redirect()
+                    ->route('plans.index')
+                    ->with('message', 'Registro deletado com sucesso');
     }
 
     public function search(Request $request) {

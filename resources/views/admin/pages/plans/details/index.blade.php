@@ -17,6 +17,9 @@
 @section('content')
     <div class="card">
         <div class="card-body">
+
+            @include('admin.includes.alerts')
+
             <table class="table table-condensed">
                 <thead>
                     <tr>
@@ -29,7 +32,7 @@
                         <tr>
                             <td>{{ $detail->name }}</td>
                             <td style="width=10px;">
-                                <a href="{{ route('plans.show', $plan->url) }}" class="btn btn-warning"><i class="fas fa-eye"></i></a>
+                                <a href="{{ route('details.plans.show', [$plan->url, $detail->id]) }}" class="btn btn-warning"><i class="fas fa-eye"></i></a>
                                 <a href="{{ route('details.plans.edit', [$plan->url, $detail->id]) }}" class="btn btn-info"><i class="fas fa-edit"></i></a>
                             </td>
                         </tr>

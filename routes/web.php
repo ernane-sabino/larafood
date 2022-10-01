@@ -9,6 +9,8 @@ Route::prefix('admin')->group(function () {
     /**
      * Routes Details Plans
     */
+    Route::put('plans/{url}/details/{idDetail}', [DetailPlanController::class, 'update'])->name('details.plans.update');
+    Route::get('plans/{url}/details/{idDetail}/edit', [DetailPlanController::class, 'edit'])->name('details.plans.edit');
     Route::post('plans/{url}/details', [DetailPlanController::class, 'store'])->name('details.plans.store');
     Route::get('plans/{url}/details/create', [DetailPlanController::class, 'create'])->name('details.plans.create');
     Route::get('plans/{url}/details', [DetailPlanController::class, 'index'])->name('details.plans.index');

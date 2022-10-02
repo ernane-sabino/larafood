@@ -31,9 +31,8 @@ class ProfileController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
-    {
-        //
+    public function create() {
+        return view('admin.pages.profiles.create');
     }
 
     /**
@@ -42,9 +41,10 @@ class ProfileController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
-    {
-        //
+    public function store(Request $request) {
+        $this->repository->create($request->all());
+
+        return redirect()->route('profiles.index');
     }
 
     /**

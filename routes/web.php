@@ -10,6 +10,7 @@ Route::prefix('admin')->group(function () {
     /**
      * Routes Details Plans
     */
+    Route::any('profiles/search', [ProfileController::class, 'search'])->name('profiles.search');
     Route::resource('profiles', ProfileController::class);
 
     /**

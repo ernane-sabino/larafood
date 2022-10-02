@@ -64,9 +64,12 @@ class ProfileController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
-    {
-        //
+    public function edit($id) {
+        if (!$profile = $this->repository->find($id)) {
+            return redirect()->back();
+        }
+
+        return view('admin.pages.profiles.edit', compact('profile'));
     }
 
     /**
@@ -76,9 +79,14 @@ class ProfileController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
-    {
-        //
+    public function update(Request $request, $id) {
+        if (!$profile = $this->repository->find($id)) {
+            return redirect()->back();
+        }
+
+        $profile->update($request->all());
+        
+        return redirect()->route('profiles.index');
     }
 
     /**

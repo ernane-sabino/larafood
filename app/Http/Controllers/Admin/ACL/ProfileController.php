@@ -54,9 +54,12 @@ class ProfileController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
-    {
-        //
+    public function show($id) {
+        if (!$profile = $this->repository->find($id)) {
+            return redirect()->back();
+        }
+
+        return view('admin.pages.profiles.show', compact('profile'));
     }
 
     /**
@@ -96,8 +99,13 @@ class ProfileController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
-    {
-        //
+    public function destroy($id) {
+        if (!$profile = $this->repository->find($id)) {
+            return redirect()->back();
+        }
+
+        $profile->delete();
+
+        return redirect()->route('profiles.index');
     }
 }

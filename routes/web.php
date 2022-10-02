@@ -4,11 +4,18 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\PlanController;
 use App\Http\Controllers\Admin\DetailPlanController;
 use App\Http\Controllers\Admin\ACL\ProfileController;
+use App\Http\Controllers\Admin\ACL\PermissionController;
 
 Route::prefix('admin')->group(function () {
 
     /**
-     * Routes Details Plans
+     * Routes Permissions
+    */
+    Route::any('permissions/search', [PermissionController::class, 'search'])->name('permissions.search');
+    Route::resource('permissions', PermissionController::class);
+
+    /**
+     * Routes Profiles
     */
     Route::any('profiles/search', [ProfileController::class, 'search'])->name('profiles.search');
     Route::resource('profiles', ProfileController::class);

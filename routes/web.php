@@ -3,8 +3,14 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\PlanController;
 use App\Http\Controllers\Admin\DetailPlanController;
+use App\Http\Controllers\Admin\ACL\ProfileController;
 
 Route::prefix('admin')->group(function () {
+
+    /**
+     * Routes Details Plans
+    */
+    Route::resource('profiles', ProfileController::class);
 
     /**
      * Routes Details Plans

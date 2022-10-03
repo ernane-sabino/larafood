@@ -8,7 +8,9 @@ use App\Http\Controllers\Admin\ACL\PermissionController;
 use App\Http\Controllers\Admin\ACL\PermissionProfileController;
 use App\Http\Controllers\Admin\ACL\PlanProfileController;
 
-Route::prefix('admin')->group(function () {
+Route::prefix('admin')
+        ->middleware('auth')
+        ->group(function () {
 
     /**
      * Plan x Profile
@@ -73,3 +75,8 @@ Route::prefix('admin')->group(function () {
 Route::get('/', function () {
     return view('welcome');
 });
+
+/**
+ * Auth Routes
+ */
+Auth::routes();

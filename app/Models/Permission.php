@@ -15,6 +15,6 @@ class Permission extends Model
      * Get Profiles -> relacionamento many to many
      */
     public function profiles() {
-        return $this->belongsToMany(Profiles::class);
+        return $this->belongsToMany(Profile::class);
     }
 }

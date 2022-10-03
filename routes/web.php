@@ -5,8 +5,14 @@ use App\Http\Controllers\Admin\PlanController;
 use App\Http\Controllers\Admin\DetailPlanController;
 use App\Http\Controllers\Admin\ACL\ProfileController;
 use App\Http\Controllers\Admin\ACL\PermissionController;
+use App\Http\Controllers\Admin\ACL\PermissionProfileController;
 
 Route::prefix('admin')->group(function () {
+
+    /**
+     * Permission x Profile
+    */
+    Route::get('profile/{id}/permissions', [PermissionProfileController::class, 'permissions'])->name('profiles.permissions');
 
     /**
      * Routes Permissions

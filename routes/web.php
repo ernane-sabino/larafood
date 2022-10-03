@@ -12,6 +12,8 @@ Route::prefix('admin')->group(function () {
     /**
      * Permission x Profile
     */
+    Route::post('profile/{id}/permissions', [PermissionProfileController::class, 'attachPermissionsProfile'])->name('profiles.permissions.attach');
+    Route::get('profile/{id}/permissions/create', [PermissionProfileController::class, 'permissionsAvailable'])->name('profiles.permissions.available');
     Route::get('profile/{id}/permissions', [PermissionProfileController::class, 'permissions'])->name('profiles.permissions');
 
     /**

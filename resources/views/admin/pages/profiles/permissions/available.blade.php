@@ -1,16 +1,13 @@
 @extends('adminlte::page')
 
-@section('title', 'Permissões do perfil {$profile->name}')
+@section('title', 'Permissões disponíveis para o perfil {$profile->name}')
 
 @section('content_header')
     <ol class="breadcrumb">
         <li class="breadcrumb-item"><a href="{{ route('admin.index') }}">Dashboard</a></li>
         <li class="breadcrumb-item active"><a href="{{ route('profiles.index') }}">Perfis</a></li>
     </ol>
-    <h1>
-        Permissões do perfil <strong>{{$profile->name}}</strong>
-        <a href="{{ route('profiles.permissions.available', $profile->id) }}" class="btn btn-dark">ADD NOVA PERMISSÃO</a>
-    </h1>
+    <h1>Permissões disponíveis para o perfil <strong>{{$profile->name}}</strong></h1>
 @stop
 
 @section('content')
@@ -24,24 +21,34 @@
         </div>
         <div class="card-body">
 
-            @include('admin.includes.alerts')
-
             <table class="table table-condensed">
                 <thead>
                     <tr>
+                        <th width="50px">#</th>
                         <th>Nome</th>
-                        <th width="170">Ações</th>
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach ($permissions as $permission)
+                    <form action="{{ route('profiles.permissions.attach', $profile->id) }}" method="post">
+                        @csrf
+                        @foreach ($permissions as $permission)
+                            <tr>
+                                <td>
+                                    <input type="checkbox" name="permissions[]" value="{{ $permission->id }}">
+                                </td>
+                                <td>
+                                    {{ $permission->name }}
+                                </td>
+                            </tr>
+                        @endforeach
+
                         <tr>
-                            <td>{{ $permission->name }}</td>
-                            <td style="width=10px;">
-                                <a href="{{ route('profiles.edit', $profile->id) }}" class="btn btn-primary"><i class="fas fa-edit"></i></a>
+                            <td colspan="500">
+                                @include('admin.includes.alerts')
+                                <button type="submit" class="btn btn-success">Vincular</button>
                             </td>
                         </tr>
-                    @endforeach
+                    </form>
                 </tbody>
             </table>
         </div>

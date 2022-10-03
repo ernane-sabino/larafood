@@ -7,6 +7,7 @@ use App\Http\Controllers\Admin\ACL\ProfileController;
 use App\Http\Controllers\Admin\ACL\PermissionController;
 use App\Http\Controllers\Admin\ACL\PermissionProfileController;
 use App\Http\Controllers\Admin\ACL\PlanProfileController;
+use App\Http\Controllers\Site\SiteController;
 
 Route::prefix('admin')
         ->middleware('auth')
@@ -72,9 +73,7 @@ Route::prefix('admin')
 
 });
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/', [SiteController::class, 'index'])->name('site.home');
 
 /**
  * Auth Routes

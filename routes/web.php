@@ -6,8 +6,18 @@ use App\Http\Controllers\Admin\DetailPlanController;
 use App\Http\Controllers\Admin\ACL\ProfileController;
 use App\Http\Controllers\Admin\ACL\PermissionController;
 use App\Http\Controllers\Admin\ACL\PermissionProfileController;
+use App\Http\Controllers\Admin\ACL\PlanProfileController;
 
 Route::prefix('admin')->group(function () {
+
+    /**
+     * Plan x Profile
+    */
+    Route::get('plans/{id}/profile/{idProfile}/detach', [PlanProfileController::class, 'detachProfilePlan'])->name('plans.profiles.detach');
+    Route::post('plans/{id}/profiles', [PlanProfileController::class, 'attachProfilesPlan'])->name('plans.profiles.attach');
+    Route::any('plans/{id}/profiles/create', [PlanProfileController::class, 'profilesAvailable'])->name('plans.profiles.available');
+    Route::get('plans/{id}/profiles', [PlanProfileController::class, 'profiles'])->name('plans.profiles');
+    Route::get('profiles/{id}/plans', [PlanProfileController::class, 'plans'])->name('profiles.plans');
 
     /**
      * Permission x Profile

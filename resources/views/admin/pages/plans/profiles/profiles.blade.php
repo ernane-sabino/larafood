@@ -1,13 +1,17 @@
 @extends('adminlte::page')
 
-@section('title', "Perfis da permissão {$permission->name}")
+@section('title', "Perfis do plano {$plan->name}")
 
 @section('content_header')
     <ol class="breadcrumb">
         <li class="breadcrumb-item"><a href="{{ route('admin.index') }}">Dashboard</a></li>
-        <li class="breadcrumb-item active"><a href="{{ route('permissions.index') }}">Perfis</a></li>
+        <li class="breadcrumb-item"><a href="{{ route('plans.index') }}">Planos</a></li>
+        <li class="breadcrumb-item active"><a href="{{ route('plans.profiles', $plan->id) }}">Perfis</a></li>
     </ol>
-    <h1>Perfis da permissão <strong>{{$permission->name}}</strong></h1>
+    <h1>
+        Perfis do plano <strong>{{$plan->name}}</strong>
+        <a href="{{ route('plans.profiles.available', $plan->id) }}" class="btn btn-dark">ADD NOVO PERFIL</a>
+    </h1>
 @stop
 
 @section('content')
@@ -28,7 +32,7 @@
                         <tr>
                             <td>{{ $profile->name }}</td>
                             <td style="width=10px;">
-                                <a href="{{ route('profiles.permissions.detach', [$profile->id, $permission->id]) }}" class="btn btn-danger"><i class="fas fa-trash-alt"></i></a>
+                                <a href="{{ route('plans.profiles.detach', [$plan->id, $profile->id]) }}" class="btn btn-danger"><i class="fas fa-trash-alt"></i></a>
                             </td>
                         </tr>
                     @endforeach

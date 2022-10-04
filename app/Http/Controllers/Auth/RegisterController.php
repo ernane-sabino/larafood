@@ -9,7 +9,7 @@ use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Str;
-
+use App\Services\TenantService;
 class RegisterController extends Controller
 {
     /*
@@ -66,22 +66,10 @@ class RegisterController extends Controller
             return redirect()->route('site.home');
         }
 
-        $tenant = $plan->tenants()->create([
-            'cnpj' => $data['cnpj'],
-            'name' => $data['empresa'],
-            'url' => Str::Kebab($data['empresa']),
-            'email' => $data['email'],
-
-            'subscription' => now(),
-            'expires_at' => now()->addDays(7),
-        ]);
-
-        $user = $tenant->users()->create([
-            'name' => $data['name'],
-            'email' => $data['email'],
-            'password' => bcrypt($data['password']),
-        ]);
+        $tenantService = app(TenantService::class);
+        $user = $tenantService->make($plan, $data);
 
         return $user;
+
     }
 }

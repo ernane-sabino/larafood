@@ -18,7 +18,7 @@
                     <strong>E-mail: </strong> {{ $user->email }}
                 </li>
                 <li>
-                    <strong>Empresa: </strong> {{ $user->tenant }}
+                    <strong>Empresa: </strong> {{ $user->tenant->name }}
                 </li>
             </ul>
 

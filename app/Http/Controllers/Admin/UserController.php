@@ -21,7 +21,7 @@ class UserController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function index() {
-        $users = $this->repository->paginate();
+        $users = $this->repository->latest()->tenantUser()->paginate();
 
         return view('admin.pages.users.index', compact('users'));
     }
@@ -45,6 +45,7 @@ class UserController extends Controller
 
         $data = $request->all();
         $data['tenant_id'] = auth()->user()->tenant->id;
+        $data['password'] = bcrypt($data['password']); // encrypt password
 
         $this->repository->create($data);
 
@@ -58,7 +59,7 @@ class UserController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function show($id) {
-        if (!$user = $this->repository->find($id)) {
+        if (!$user = $this->repository->tenantUser()->find($id)) {
             return redirect()->back();
         }
 
@@ -72,7 +73,7 @@ class UserController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function edit($id) {
-        if (!$user = $this->repository->find($id)) {
+        if (!$user = $this->repository->tenantUser()->find($id)) {
             return redirect()->back();
         }
 
@@ -87,11 +88,17 @@ class UserController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function update(StoreUpdateUser $request, $id) {
-        if (!$user = $this->repository->find($id)) {
+        if (!$user = $this->repository->tenantUser()->find($id)) {
             return redirect()->back();
         }
 
-        $user->update($request->all());
+        $data = $request->only('name', 'email');
+
+        if ($request->password) {
+            $data['password'] = bcrypt($request->password);
+        }
+
+        $user->update($data);
 
         return redirect()->route('users.index');
     }
@@ -103,7 +110,7 @@ class UserController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function destroy($id) {
-        if (!$user = $this->repository->find($id)) {
+        if (!$user = $this->repository->tenantUser()->find($id)) {
             return redirect()->back();
         }
 
@@ -129,6 +136,8 @@ class UserController extends Controller
                                           ->orWhere('email', $request->filter);
                                 }
                             })
+                            ->latest()
+                            ->tenantUser()
                             ->paginate();
 
         return view('admin.pages.users.index', compact('users', 'filters'));
